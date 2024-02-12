@@ -1,7 +1,7 @@
 // src/App.js
 import React, { useState, useEffect } from 'react';
 import BotCollection from './components/BotCollection';
-import BotArmy from './components/BotArmy';
+import YourBotArmy from './components/YourBotArmy';
 import './App.css'; // Import the CSS file
 
 const App = () => {
@@ -27,19 +27,6 @@ const App = () => {
     if (!enlistedBots.find((b) => b.id === bot.id)) {
       // Enlist the bot on the frontend
       setEnlistedBots((prevEnlistedBots) => [...prevEnlistedBots, bot]);
-
-      // Enlist the bot on the backend
-      try {
-        await fetch('http://localhost:3000/bots', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(bot),
-        });
-      } catch (error) {
-        console.error('Error enlisting bot on the backend:', error);
-      }
     }
   };
 
@@ -87,11 +74,11 @@ const App = () => {
       <div className="bot-container">
 
       {showSpecs ? (
-        <BotArmy army={enlistedBots} onRelease={handleRelease} onDischarge={handleDischarge} />
+        <YourBotArmy army={enlistedBots} onRelease={handleRelease} onDischarge={handleDischarge} />
       ) : (
         <>
           <BotCollection onEnlist={handleEnlist} onShowSpecs={handleShowSpecs} />
-          <BotArmy army={enlistedBots} onRelease={handleRelease} onDischarge={handleDischarge} />
+          <YourBotArmy army={enlistedBots} onRelease={handleRelease} onDischarge={handleDischarge} />
         </>
       )}
     </div>

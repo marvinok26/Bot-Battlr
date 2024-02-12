@@ -1,6 +1,7 @@
+// src/components/BotCollection.js
 import React, { useState, useEffect } from 'react';
 
-const BotCollection = ({ onEnlist, onShowSpecs }) => {
+const BotCollection = ({ onEnlist, onShowSpecs, enlistedBots }) => {
   const [bots, setBots] = useState([]);
 
   useEffect(() => {
@@ -23,12 +24,7 @@ const BotCollection = ({ onEnlist, onShowSpecs }) => {
       <div className="bot-container">
         {bots.map((bot) => (
           <div key={bot.id} className="bot-card">
-            <img src={bot.avatar_url} alt={`Avatar of ${bot.name}`} className="bot-avatar" />
-            <h3 className="bot-name">{bot.name}</h3>
-            <p className="bot-info">Class: {bot.bot_class}</p>
-            <p className="bot-info">Health: {bot.health}</p>
-            <p className="bot-info">Damage: {bot.damage}</p>
-            <p className="bot-info">Armor: {bot.armor}</p>
+            {/* ... (existing code) */}
             <div className="bot-actions">
               <button onClick={() => onEnlist(bot)}>Enlist</button>
               <button onClick={() => onShowSpecs(bot)}>Show Details</button>
