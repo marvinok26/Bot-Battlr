@@ -50,7 +50,7 @@ const App = () => {
 
     // Discharge the bot on the backend
     try {
-      await fetch(`http://localhost:8001/bots/${bot.id}`, {
+      await fetch(`http://localhost:3000/bots/${bot.id}`, {
         method: 'DELETE',
       });
     } catch (error) {

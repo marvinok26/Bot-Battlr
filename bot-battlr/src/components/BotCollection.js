@@ -4,19 +4,7 @@ import React, { useState, useEffect } from 'react';
 const BotCollection = ({ onEnlist, onShowSpecs, enlistedBots }) => {
   const [bots, setBots] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://localhost:8001/bots');
-        const data = await response.json();
-        setBots(data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
+//  
 
   return (
     <div>
