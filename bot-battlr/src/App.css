@@ -4,20 +4,39 @@ body {
   padding: 0;
 }
 
-.App{
+.container{
   max-width: 100%;
   margin: 0 auto;
   padding: 20px;
 }
+.container small{
+  position:relative;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5px;
+}
+.container a{
+  color: white;
+  text-decoration: none;
+  padding: 5px;
+  width: fit-content;
+  background-color: #4CAF50;
+  border-radius: 5px;
+}
 
-.App h1 {
+.container h1 {
   text-align: center;
   padding: 20px 0;
   background-color: #4CAF50;
   color: white;
 }
-
-.bot-container {
+.collections h2{
+  text-align: center;
+  padding: 20px 0;
+  background-color: #4CAF50;
+  color: white;
+}
+.bot-contain {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
@@ -31,6 +50,9 @@ body {
   border: 2px solid #ddd;
   border-radius: 10px;
   background-color: #f9f9f9;
+}
+.bot-card:hover{
+  background-color: #4CAF50;
 }
 
 .bot-card img {
@@ -52,7 +74,7 @@ body {
 .bot-actions button {
   padding: 8px 15px;
   cursor: pointer;
-  background-color: #4CAF50;
+  background-color:gray;
   color: white;
   border: none;
   border-radius: 5px;
@@ -69,6 +91,8 @@ body {
 .your-bot-army {
   background-color: #e6e6e6;
   padding: 20px;
+  max-width: 100%;
+  margin: 0 auto;
 }
 
 .your-bot-army h2 {
@@ -79,6 +103,10 @@ body {
 .your-bot-army .bot-card {
   background-color: #d9d9d9;
   border: 2px solid #bbb;
+  text-align: center;
+  padding: 15px;
+  margin: 10px;
+  border-radius: 10px;
 }
 
 .your-bot-army .bot-actions {

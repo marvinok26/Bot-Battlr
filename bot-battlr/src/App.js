@@ -1,4 +1,4 @@
-//App.js
+
 import React,{useState, useEffect} from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import BotCollection from "./components/BotCollection";
@@ -46,8 +46,9 @@ function App() {
 
   return (
     <Router>
-      <div className="App">
+      <div className="container">
         <h1>Bot Battlr</h1>
+        <small>click to view Your Army:</small>
         <Link to="/your-bot-army">Your Bot Army</Link>
         <Routes>
           <Route
@@ -61,6 +62,7 @@ function App() {
             }
           />
           <Route
+          
             path="/your-bot-army"
             element={
               <YourBotArmy enlistedBots={enlistedBots} releaseBot={releaseBot} />

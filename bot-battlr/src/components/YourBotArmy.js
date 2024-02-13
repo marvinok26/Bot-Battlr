@@ -1,4 +1,4 @@
-//BotArmy
+
 import React from "react";
 
 const YourBotArmy = ({ enlistedBots, releaseBot }) => {
@@ -7,7 +7,7 @@ const YourBotArmy = ({ enlistedBots, releaseBot }) => {
     };
 
     return (
-        <div className="bots">
+        <div className="your-bot-army">
         <h2>Your Bot Army</h2>
         {enlistedBots.map(bot => (
             <div key={bot.id} className="bot-card">
@@ -16,7 +16,9 @@ const YourBotArmy = ({ enlistedBots, releaseBot }) => {
                 <p>Health: {bot.health}</p>
                 <p>Damage: {bot.damage}</p>
                 <p>Class: {bot.bot_class}</p>
+                <div className="bot-actions">
                 <button className="release" onClick={() => handleRelease(bot.id)}>Release</button>
+                </div>
             </div>
         ))}
         </div>
