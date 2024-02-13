@@ -4,7 +4,7 @@ import React from 'react';
 const BotArmy = ({ army, onRelease, onEnlist }) => {
   return (
     <div>
-      <h2 className="your-bot-army "> Bot Army</h2>
+      <h2 className="your-bot-army "> Your Bot Army</h2>
       <div className="bot-container">
         {army.map((bot) => (
           <div key={bot.id} className="bot-card">
