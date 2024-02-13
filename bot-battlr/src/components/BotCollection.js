@@ -13,6 +13,7 @@ const BotCollection = ({ bots, enlistBot, dischargeBot }) => {
   return (
       <div className='collections'>
       <h2>Bot Collection</h2>
+      <small>Click on a bot to add it to your army</small>
       <div className="bot-contain">
           {bots.map(bot => (
           <div key={bot.id} className="bot-card" onClick={() => handleEnlistment(bot)}>
