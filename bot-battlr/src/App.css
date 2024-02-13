@@ -4,13 +4,13 @@ body {
   padding: 0;
 }
 
-.container {
+.App{
   max-width: 100%;
   margin: 0 auto;
   padding: 20px;
 }
 
-.header {
+.App h1 {
   text-align: center;
   padding: 20px 0;
   background-color: #4CAF50;

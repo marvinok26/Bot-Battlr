@@ -1,27 +1,33 @@
-// src/components/BotCollection.js
-import React, { useState, useEffect } from 'react';
+//BotCollection
+import React from 'react';
 
-const BotCollection = ({ onEnlist, onShowSpecs, enlistedBots }) => {
-  const [bots, setBots] = useState([]);
+const BotCollection = ({ bots, enlistBot, dischargeBot }) => {
+  const handleEnlistment = (bot) => {
+      enlistBot(bot);
+  };
 
-//  
+  const handleDischarge = (botId) => {
+      dischargeBot(botId);
+  };
 
   return (
-    <div>
-      <h2 className="section-title">Bot Collection</h2>
-      <div className="bot-container">
-        {bots.map((bot) => (
-          <div key={bot.id} className="bot-card">
-            {/* ... (existing code) */}
-            <div className="bot-actions">
-              <button onClick={() => onEnlist(bot)}>Enlist</button>
-              <button onClick={() => onShowSpecs(bot)}>Show Details</button>
+      <div>
+      <h2>Bot Collection</h2>
+      <div className="bot-list">
+          {bots.map(bot => (
+          <div key={bot.id} className="bot-card" onClick={() => handleEnlistment(bot)}>
+              <h3>{bot.name}</h3>
+              <img className='avatar' src={bot.avatar_url} alt="bot" />
+              <p>Health: {bot.health}</p>
+              <p>Damage: {bot.damage}</p>
+              <div className="buttons">
+              <button className="delete" onClick={() => handleDischarge(bot.id)}>Release</button>
+                </div>
             </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
+            ))}
+        </div>
+        </div>
+    );
+}
 
 export default BotCollection;

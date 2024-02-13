@@ -1,89 +1,75 @@
-// src/App.js
-import React, { useState, useEffect } from 'react';
-import BotCollection from './components/BotCollection';
-import YourBotArmy from './components/YourBotArmy';
-import './App.css'; // Import the CSS file
+//App.js
+import React,{useState, useEffect} from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import BotCollection from "./components/BotCollection";
+import YourBotArmy from "./components/YourBotArmy";
+import './App.css';
 
-const App = () => {
+function App() {
+  const [bots, setBots] = useState([]);
   const [enlistedBots, setEnlistedBots] = useState([]);
-  const [showSpecs, setShowSpecs] = useState(null);
 
-  // Fetch initial enlisted bots from the server
   useEffect(() => {
-    const fetchEnlistedBots = async () => {
-      try {
-        const response = await fetch('http://localhost:3000/bots');
-        const data = await response.json();
-        setEnlistedBots(data);
-      } catch (error) {
-        console.error('Error fetching enlisted bots:', error);
-      }
-    };
-
-    fetchEnlistedBots();
+    fetch("http://localhost:3000/bots")
+      .then((response) => response.json())
+      .then((data) => setBots(data))
+      .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
-  const handleEnlist = async (bot) => {
-    if (!enlistedBots.find((b) => b.id === bot.id)) {
-      // Enlist the bot on the frontend
+  const enlistBot = (bot) => {
+    if (!enlistedBots.some((enlistedBot) => enlistedBot.id === bot.id)) {
       setEnlistedBots((prevEnlistedBots) => [...prevEnlistedBots, bot]);
     }
   };
 
-  const handleRelease = async (bot) => {
-    // Release the bot on the frontend
-    setEnlistedBots((prevEnlistedBots) => prevEnlistedBots.filter((b) => b.id !== bot.id));
+  const releaseBot = (botId) => {
+    setEnlistedBots((prevEnlistedBots) =>
+      prevEnlistedBots.filter((bot) => bot.id !== botId)
+    );
+  };
 
-    // Release the bot on the backend
-    try {
-      await fetch(`http://localhost:3000/bots/${bot.id}`, {
-        method: 'DELETE',
+  const handleDischarge = (botId) => {
+    const updatedBots = bots.filter((bot) => bot.id !== botId);
+    setBots(updatedBots);
+    fetch(`http://localhost:3000/bots/${botId}`, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to delete bot from backend");
+        }
+      })
+      .catch((error) => {
+        console.error("Error deleting bot from backend:", error);
       });
-    } catch (error) {
-      console.error('Error releasing bot on the backend:', error);
-    }
-  };
-
-  const handleDischarge = async (bot) => {
-    // Discharge the bot on the frontend
-    setEnlistedBots((prevEnlistedBots) => prevEnlistedBots.filter((b) => b.id !== bot.id));
-
-    // Discharge the bot on the backend
-    try {
-      await fetch(`http://localhost:3000/bots/${bot.id}`, {
-        method: 'DELETE',
-      });
-    } catch (error) {
-      console.error('Error discharging bot on the backend:', error);
-    }
-  };
-
-  const handleShowSpecs = (bot) => {
-    setShowSpecs(bot);
-  };
-
-  const handleBackToList = () => {
-    setShowSpecs(null);
   };
 
   return (
-    <div className="container">
-      <div className="header">
+    <Router>
+      <div className="App">
         <h1>Bot Battlr</h1>
+        <Link to="/your-bot-army">Your Bot Army</Link>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <BotCollection
+                bots={bots}
+                enlistBot={enlistBot}
+                dischargeBot={handleDischarge}
+              />
+            }
+          />
+          <Route
+            path="/your-bot-army"
+            element={
+              <YourBotArmy enlistedBots={enlistedBots} releaseBot={releaseBot} />
+            }
+          />
+        </Routes>
       </div>
-      <div className="bot-container">
-
-      {showSpecs ? (
-        <YourBotArmy army={enlistedBots} onRelease={handleRelease} onDischarge={handleDischarge} />
-      ) : (
-        <>
-          <BotCollection onEnlist={handleEnlist} onShowSpecs={handleShowSpecs} />
-          <YourBotArmy army={enlistedBots} onRelease={handleRelease} onDischarge={handleDischarge} />
-        </>
-      )}
-    </div>
-      </div>
+    </Router>
   );
-};
+}
 
 export default App;
